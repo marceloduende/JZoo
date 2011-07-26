@@ -21,13 +21,17 @@
  */
 package com.marceloduende.jzoo.utils;
 
-import com.marceloduende.jzoo.R;
-import com.marceloduende.jzoo.debugger.ToastDebugger;
-
+import android.R;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+
+import com.marceloduende.jzoo.debugger.ToastDebugger;
 
 public class DialogUtils {
 	
@@ -158,6 +162,38 @@ public class DialogUtils {
 	}
 	public void disposeProgressBarDialog(){
 		progressBarDialog.dismiss();
+	}
+	
+	
+	/**
+	 * 
+	 * @param _activity
+	 * @param _tickerText
+	 * @param _title
+	 * @param _content
+	 * 
+	 * @usage 
+	 * DialogUtils l = new DialogUtils();
+	 * l.notificationDialog(this, R.drawable.icon, "hello", "title", "contentt");
+	 * 
+	 * notificationDialogActivity(Activity, int, String, String, String);
+	 * 
+	 */
+	public void notificationDialog(Activity _activity, int _icon, String _tickerText, String _title, String _content){
+		
+		String ns = Activity.NOTIFICATION_SERVICE;
+		NotificationManager nm = (NotificationManager) _activity.getSystemService(ns);
+		
+		long when = System.currentTimeMillis();
+		
+		Notification notification = new Notification(_icon, _tickerText, when);
+		
+		Intent notificationIntent = new Intent(_activity, DialogUtils.class);
+		PendingIntent contentIntent = PendingIntent.getActivity(_activity, 0, notificationIntent, 0);
+		notification.setLatestEventInfo(_activity, _title, _content, contentIntent);
+		
+		nm.notify(1, notification);
+		
 	}
 	
 	
