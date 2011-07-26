@@ -1,9 +1,7 @@
-A java tool kit for Android development
-================================
+= A java tool kit for Android development
 
 
-Installation
-
+== Installation
 
 Clone the project
 
@@ -11,12 +9,12 @@ it does require the newest Google Packages. Download it through the Eclipse
 http://www.javacodegeeks.com/2011/02/android-google-maps-tutorial.html is a good example\
 
 
-About
-
+== About
 
 Starting new world, and starting a new tool kit, hope it can be helpful for whoever try it.\
 I'll be updating it often.
 
 
-TODOs
+== TODOs
+
 A lot!
