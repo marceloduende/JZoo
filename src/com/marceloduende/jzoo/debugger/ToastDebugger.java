@@ -5,9 +5,9 @@
  * 
  * @usage 
  * ToastDebugger td = new ToastDebugger();
- * td.makeToast(_activity, "text"); 
+ * td.makeToast(your_activity, "text"); 
  * or
- * td.makeToast(_activity, "text", 1); 
+ * td.makeToast(your_activity, "text", 1); 
  * 0 = SHORT //default
  * 1 = LONG
  * 

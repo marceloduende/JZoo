@@ -25,7 +25,7 @@
  * 
  * 4 - Call this class passing some string to save in your google analytics records
  * GA ga = new GA();
- * ga.init(this);
+ * ga.init(your_activity);
  * ga.trackPageView("/MyPage"); //MyPage will be the tag that will appear in the google analytics report.
  * 
  * 5 - DON'T FORGET TO CREATE YOUR GOOGLE ANALYTICS ACCOUNT AND CHANGE THE STRING CALLED "GOOGLE_ANALYTICS_ID" down there

@@ -5,7 +5,7 @@
  * 
  * @usage 
  * GPSLocation l = new GPSLocation();
- * l.location(this);
+ * l.location(your_activity);
  * 
  * @utility
  * It does find your location
