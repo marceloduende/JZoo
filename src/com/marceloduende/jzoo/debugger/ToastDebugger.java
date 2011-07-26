@@ -5,8 +5,10 @@
  * 
  * @usage 
  * ToastDebugger td = new ToastDebugger();
- * td.makeToast(_activity, "text", 0); 
- * 0 = SHORT
+ * td.makeToast(_activity, "text"); 
+ * or
+ * td.makeToast(_activity, "text", 1); 
+ * 0 = SHORT //default
  * 1 = LONG
  * 
  * @utility
@@ -33,6 +35,10 @@ public class ToastDebugger {
 	
 	public static int LONG  = Toast.LENGTH_LONG;
 	public static int SHORT = Toast.LENGTH_SHORT;
+	
+	public void makeToast(Activity _activity, String _text) {
+		makeToast(_activity, _text, 0);
+	}
 	
 	public void makeToast(Activity _activity, String _text, int _duration) {
 		_duration = _duration > 0 ? LONG : SHORT;  
