@@ -22,6 +22,8 @@
 package com.marceloduende.jzoo.utils;
 
 import com.marceloduende.jzoo.R;
+import com.marceloduende.jzoo.debugger.ToastDebugger;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -57,7 +59,14 @@ public class DialogUtils {
 		alertbox = new AlertDialog.Builder(_activity);
 		alertbox.setMessage(_text);
 		
-		if(_button1 != ""){
+		
+		if(_button1 == ""){
+			ToastDebugger td = new ToastDebugger();
+			td.makeToast(_activity, "ERROR! You should at least set up one button", 1);
+			return;
+		}
+		
+		if(_button2 != ""){
 			alertbox.setPositiveButton(_button1, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface arg0, int arg1) {
 					// some action if you need
@@ -68,15 +77,17 @@ public class DialogUtils {
 					// some action if you need
 				}
 			});
-		} else {
+			alertbox.show();
+		} else if(_button1 != ""){
 			alertbox.setNeutralButton(_button1, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface arg0, int arg1) {
 					// some action if you need
 				}
 			});
+			alertbox.show();
 		}
 		
-		alertbox.show();
+		
 	}
 	
 	
