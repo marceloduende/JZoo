@@ -40,7 +40,7 @@ public class WifiState {
 	public void checkWifi(Activity _activity){
 		WifiManager wm = (WifiManager) _activity.getSystemService(Context.WIFI_SERVICE);
 		if (wm.isWifiEnabled()) {
-			// wifi ennabled	
+			// wifi enabled	
 		} else {
 			// it is disabled, handle it if you need
 			AlertDialog.Builder alertbox = new AlertDialog.Builder(_activity);

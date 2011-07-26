@@ -48,7 +48,7 @@ public class GPSLocation {
 	
 	private boolean 			gps_enabled 	= false;
 	private boolean 			network_enabled = false;
-	private LocationManager 	lm				= null;
+	private LocationManager		lm				= null;
 	public  Location 			myLocation 		= null;
 	public  Activity 			act;
 	
