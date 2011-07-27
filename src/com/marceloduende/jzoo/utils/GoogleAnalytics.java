@@ -24,7 +24,7 @@
  * <uses-permission android:name="android.permission.INTERNET"></uses-permission>
  * 
  * 4 - Call this class passing some string to save in your google analytics records
- * GA ga = new GA();
+ * GoogleAnalytics ga = new GoogleAnalytics();
  * ga.init(your_activity);
  * ga.trackPageView("/MyPage"); //MyPage will be the tag that will appear in the google analytics report.
  * 
