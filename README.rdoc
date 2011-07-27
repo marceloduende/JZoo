@@ -1,7 +1,7 @@
 = A java tool kit for Android development
 
 
-== Installation
+== Set up
 
 Clone the project
 
