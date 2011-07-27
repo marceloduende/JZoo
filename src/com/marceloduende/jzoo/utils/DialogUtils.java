@@ -21,7 +21,6 @@
  */
 package com.marceloduende.jzoo.utils;
 
-import android.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -93,6 +92,8 @@ public class DialogUtils {
 		
 		
 	}
+	
+	
 	
 	
 	
