@@ -7,35 +7,56 @@
  * 
  * ***********************   Using RECT shapes   ***********************************
  * View linearLayout =  findViewById(R.id.YOUR_LAYOUT_ID);
- * ShapeFactory sf = new ShapeFactory(this, 20, 30, 200, 200, 0xffffffff, "RECT");
+ * ShapeFactoryParameters b = new ShapeFactoryParameters()
+ * 			.x(50).y(50).w(300).h(100).color(0xffffffff).kind("RECT");
+ * ShapeFactory sf = new ShapeFactory(YOUR_ACTIVITY, b);
  * ((LinearLayout) linearLayout).addView(sf);
+ * 
+ * 
  * 
  * ***********************   Using RECT_STROKE shapes   ***************************
  * View linearLayout =  findViewById(R.id.YOUR_LAYOUT_ID);
- * ShapeFactory sf = new ShapeFactory(this, 20, 30, 200, 200, 0xffffffff, "RECT_STROKE", 5);
+ * ShapeFactoryParameters b = new ShapeFactoryParameters()
+ * 			.x(50).y(50).w(300).h(100).color(0xffffffff).kind("RECT_STROKE").stroke(5);
+ * ShapeFactory sf = new ShapeFactory(YOUR_ACTIVITY, b);
  * ((LinearLayout) linearLayout).addView(sf);
+ * 
+ * 
  * 
  * ***********************   Using OVAL shapes   ***********************************
  * View linearLayout =  findViewById(R.id.YOUR_LAYOUT_ID);
- * ShapeFactory sf = new ShapeFactory(this, 20, 30, 200, 200, 0xffffffff, "OVAL");
+ * ShapeFactoryParameters b = new ShapeFactoryParameters()
+ * 			.x(50).y(50).w(300).h(100).color(0xffffffff).kind("OVAL");
+ * ShapeFactory sf = new ShapeFactory(YOUR_ACTIVITY, b);
  * ((LinearLayout) linearLayout).addView(sf);
+ * 
+ * 
  * 
  * ***********************   Using OVAL_STROKE shapes   ***************************
  * View linearLayout =  findViewById(R.id.YOUR_LAYOUT_ID);
- * ShapeFactory sf = new ShapeFactory(this, 20, 30, 200, 200, 0xffffffff, "OVAL_STROKE", 5);
+ * ShapeFactoryParameters b = new ShapeFactoryParameters()
+ * 			.x(50).y(50).w(300).h(100).color(0xffffffff).kind("OVAL_STROKE").stroke(20);
+ * ShapeFactory sf = new ShapeFactory(YOUR_ACTIVITY, b);
  * ((LinearLayout) linearLayout).addView(sf);
+ * 
+ * 
  * 
  * ***********************   Using ROUND shapes   **********************************
  * View linearLayout =  findViewById(R.id.YOUR_LAYOUT_ID);
  * float[] corner = new float[] {5, 5, 5, 5, 5, 5, 5, 5 }; // change it for a diferent corner;
- * ShapeFactory sf = new ShapeFactory(this, 20, 30, 200, 200, 0xffffffff, "ROUND", 0, corner);
+ * ShapeFactoryParameters b = new ShapeFactoryParameters()
+ * 			.x(50).y(50).w(300).h(100).color(0xffffffff).kind("ROUND").corner(f);
+ * ShapeFactory sf = new ShapeFactory(YOUR_ACTIVITY, b);
  * ((LinearLayout) linearLayout).addView(sf);
+ * 
+ * 
  * 
  * ***********************   Using ROUND_STROKE shapes   **************************
  * View linearLayout =  findViewById(R.id.YOUR_LAYOUT_ID);
  * float[] corner = new float[] {5, 5, 5, 5, 5, 5, 5, 5 }; // change it for a diferent corner;
- * int stroke = 5;// change ir for a different stroke size;
- * ShapeFactory sf = new ShapeFactory(this, 20, 30, 200, 200, 0xffffffff, "ROUND_STROKE", corner, stroke);
+ * ShapeFactoryParameters b = new ShapeFactoryParameters()
+ * 			.x(50).y(50).w(300).h(100).color(0xffffffff).kind("ROUND_STROKE").corner(20).stroke(5);
+ * ShapeFactory sf = new ShapeFactory(YOUR_ACTIVITY, b);
  * ((LinearLayout) linearLayout).addView(sf);
  * 
  * 
@@ -43,8 +64,18 @@
  * Good to create multiple and single shapes, rounded shapes and stroked shapes
  * 
  * @parameters
- * String _kind; // it could be "OVAL", "RECT", "ROUND". Coming up new features.
+ * // MANDATORY
+ * x();
+ * y();
+ * h();
+ * w();
+ * color();
+ * kind();
  * 
+ * // RELATIVE
+ * corner();
+ * stroke();
+ * alpha();
  * 
  * 
  * LICENSE AGREEMENT:
@@ -88,28 +119,16 @@ public class ShapeFactory extends View implements IShapeControl{
 	 * @param _kind
 	 */
 	
-	 // RECT, OVAL
-	public ShapeFactory(Context context, int _x, int _y, int _w, int _h, int _color, String _kind) {
-		super(context);
-		new ShapeFactory(context, _x, _y, _w, _h, _color, _kind, 0);
-	}  
-
-	// ROUND
-	public ShapeFactory(Context context, int _x, int _y, int _w, int _h, int _color, String _kind, int _stroke) {
-		super(context);
-		float[] _fake = new float[]{5,5,5,5,5,5,5,5};
-		new ShapeFactory(context, _x, _y, _w, _h, _color, _kind, _stroke, _fake);
-	} 
 	
 	// ROUND STROKE
-	public ShapeFactory(Context context, int _x, int _y, int _w, int _h, int _color, String _kind, int _stroke, float[] _corner) {
+	public ShapeFactory(Context context, ShapeFactoryParameters builder) {
         super(context);
         
         
-        corner = _corner;
-        stroke = _stroke;
+        corner = builder.corner();
+        stroke = builder.stroke();
         // managing the shape kind
-        switch (kind.valueOf(_kind)){
+        switch (kind.valueOf(builder.kind())){
 	        case OVAL:
 	        	mDrawable = new ShapeDrawable(new OvalShape());
 	        	break;
@@ -132,14 +151,13 @@ public class ShapeFactory extends View implements IShapeControl{
 	        	int c = 0;
 	        	for(int b = 0; b<8; b++){
 	        		if(c == 0){
-	        			corner[b] = Math.abs(_x + _w);
+	        			corner[b] = Math.abs(builder.x() + builder.w());
 	        		} else {
-	        			corner[b] = Math.abs(_y + _h);
+	        			corner[b] = Math.abs(builder.y() + builder.h());
 	        			c = -1;
 	        		}
 	        		c++;
 	        	}
-	        	
 	        	roundedShapes();
 	        	break;
 	        	
@@ -147,8 +165,14 @@ public class ShapeFactory extends View implements IShapeControl{
 	        	roundedShapes();
 	        	break;
         }
-        mDrawable.getPaint().setColor(_color);
-        mDrawable.setBounds(_x, _y, _x + _w, _y + _h);
+        
+        mDrawable.getPaint().setColor(builder.color());
+        mDrawable.getPaint().setAlpha(builder.alpha());
+        
+        //LinearGradient lg = new LinearGradient(0, 0, 0, builder.h(), Color.GREEN, Color.WHITE, Shader.TileMode.REPEAT);
+      //  mDrawable.getPaint().setShader(lg);
+        
+        mDrawable.setBounds(builder.x(), builder.y(), builder.x() + builder.w(), builder.y() + builder.h());
         mShape.add(mDrawable);
     }
     
