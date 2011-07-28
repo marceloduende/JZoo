@@ -8,8 +8,12 @@ public class ShapeFactoryParameters {
 	private int _h; 
 	private int _color; 
 	private String _kind; 
+	private String _gradientKind = "";
 	private int _stroke = 4; 
 	private int _alpha = 255;
+	private int _gradientColor1;
+	private int _gradientColor2;
+	private int _gradientAngle;
 	private float[] _corner = new float[]{0,0,0,0,0,0,0,0};
 	
 	public ShapeFactoryParameters x(int x) {
@@ -83,4 +87,43 @@ public class ShapeFactoryParameters {
 	public int alpha(){
 		return _alpha;
 	}
+	
+	
+	public ShapeFactoryParameters gradientKind(String g){
+		_gradientKind = g;
+		return this;
+	}
+	public String gradientKind(){
+		return _gradientKind;
+	}
+	
+	
+	public ShapeFactoryParameters gradientColor1(int gc1){
+		_gradientColor1 = gc1;
+		return this;
+	}
+	public int gradientColor1(){
+		return _gradientColor1;
+	}
+	
+	
+	public ShapeFactoryParameters gradientColor2(int gc2){
+		_gradientColor2 = gc2;
+		return this;
+	}
+	public int gradientColor2(){
+		return _gradientColor2;
+	}
+	
+	
+	public ShapeFactoryParameters gradientAngle(int ga){
+		_gradientAngle = ga;
+		return this;
+	}
+	public int gradientAngle(){
+		return _gradientAngle;
+	}
+	
+	
+	
 }
