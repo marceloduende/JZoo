@@ -60,7 +60,6 @@ public class ShapeFactory extends View implements IShapeControl{
 
 	public ShapeDrawable mDrawable;
 	
-	
 	/**
 	 * 
 	 * @param context
@@ -75,7 +74,7 @@ public class ShapeFactory extends View implements IShapeControl{
 	 // RECT, OVAL
 	public ShapeFactory(Context context, int _x, int _y, int _w, int _h, int _color, String _kind) {
 		super(context);
-		float[] _fake = new float[]{0,0,0,0,0,0,0,0};
+		float[] _fake = new float[]{5,5,5,5,5,5,5,5};
 		new ShapeFactory(context, _x, _y, _w, _h, _color, _kind, _fake);
 	} 
 
@@ -86,7 +85,7 @@ public class ShapeFactory extends View implements IShapeControl{
 	} 
 	
 	// ROUND STROKE
-	public ShapeFactory(Context context, int _x, int _y, int _w, int _h, int _color, String _kind, float[] _corner, int _factor) {
+	public ShapeFactory(Context context, int _x, int _y, int _w, int _h, int _color, String _kind, float[] _corner, int _stoke) {
         super(context);
         
         // managing the shape kind
@@ -105,28 +104,25 @@ public class ShapeFactory extends View implements IShapeControl{
 	        	for (int a = 0; a<_corner.length; a++){
 	        		_innerCorner[a] = Math.round(_corner[a]);
 	        	}
-	        	if(Integer.valueOf(_factor) != 0){
+	        	if(Integer.valueOf(_stoke) != 0){
 		        	RectF f = new RectF();
-		        	f.left = f.right = f.top = f.bottom = _factor;
+		        	f.left = f.right = f.top = f.bottom = _stoke;
 		        	mDrawable = new ShapeDrawable(new RoundRectShape(_corner, f, _innerCorner));
 	        	} else { 
-	        		Log.v("int else", "" + _factor);
+	        		Log.v("int else", "" + _stoke);
 	        		mDrawable = new ShapeDrawable(new RoundRectShape(_corner, null, _innerCorner));
 	        	}
 	        	break;
         }
-        
         mDrawable.getPaint().setColor(_color);
         mDrawable.setBounds(_x, _y, _x + _w, _y + _h);
         mShape.add(mDrawable);
     }
     
-    
     public enum kind
     {
         OVAL, RECT, ROUND; 
     }
-    
     
     @Override
     protected void onDraw(Canvas canvas) {
@@ -135,9 +131,4 @@ public class ShapeFactory extends View implements IShapeControl{
         	mShape.get(i).draw(canvas);
         }
     }
-    
-  
-	
-	
-	
 }
