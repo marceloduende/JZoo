@@ -9,7 +9,7 @@
  * int orientation = WindowBoundaries.getOrientation(_activity); // 0 = vertical and 1 = horizontal
  * 
  * @utility
- * It does figure out the orientation, with or height of your screen, pretty useful.
+ * It does figure out the orientation, width or height of your screen, pretty useful.
  * 
  * 
  * 
@@ -33,20 +33,20 @@ import android.view.WindowManager;
 public class WindowBoundaries {
 	
 	public static int getWidth(Activity _activity){
-		 Display display = ((WindowManager) _activity.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay(); 
-	        int width = display.getWidth(); 
+		Display display = ((WindowManager) _activity.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay(); 
+		int width = display.getWidth(); 
 		return width;
 	}
 	
 	public static int getHeight(Activity _activity){
-		 Display display = ((WindowManager) _activity.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay(); 
-	        int height = display.getHeight(); 
+		Display display = ((WindowManager) _activity.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay(); 
+		int height = display.getHeight(); 
 		return height;
 	}
 	
 	public static int getOrientation(Activity _activity){
-		 Display display = ((WindowManager) _activity.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay(); 
-	        int orientation = display.getOrientation(); 
+		Display display = ((WindowManager) _activity.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay(); 
+		int orientation = display.getOrientation(); 
 		return orientation;
 	}
 }
