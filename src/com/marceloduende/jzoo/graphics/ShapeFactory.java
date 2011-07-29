@@ -63,7 +63,19 @@
  * ***********************   Using GRADIENT shapes   ***********************************
  * View linearLayout =  findViewById(R.id.YOUR_LAYOUT_ID);
  * ShapeFactoryParameters b = new ShapeFactoryParameters()
- * 			.x(50).y(50).w(300).h(100).color(0xffffffff).kind("RECT").gradientKind("CLAMP").gradientColor1(Color.WHITE).gradientColor2(0xffff0000).gradientAngle(70);;
+ * 			.x(50)
+ * 			.y(50)
+ * 			.w(300)
+ * 			.h(100)
+ * 			.color(0xffffffff)
+ * 			.kind("RECT")
+ * 			.gradientKind("CLAMP")
+ * 			.gradientColor1(Color.WHITE)
+ * 			.gradientColor2(0xffff0000)
+ * 			.gradientStartX(50)
+ * 			.gradientStartY(50)
+ * 			.gradientEndX(200)
+ * 			.gradientEndY(100);
  * ShapeFactory sf = new ShapeFactory(YOUR_ACTIVITY, b);
  * ((LinearLayout) linearLayout).addView(sf);
  * 
@@ -87,7 +99,10 @@
  * gradientKind(); // "CLAMP", "REPEAT" "MIRROR"
  * gradientColor1(); // int
  * gradientColor2(); // int
- * gradientAngle(); // int
+ * gradientStartX(); // int
+ * gradientStartY(); // int
+ * gradientEndX(); // int
+ * gradientEndY(); // int
  * 
  * 
  * LICENSE AGREEMENT:
@@ -111,7 +126,6 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RectShape;
 import android.graphics.drawable.shapes.RoundRectShape;
-import android.util.Log;
 import android.view.View;
 
 import com.marceloduende.jzoo.core.IShapeControl;
@@ -144,7 +158,6 @@ public class ShapeFactory extends View implements IShapeControl{
 	public ShapeFactory(Context context, ShapeFactoryParameters _builder) {
         super(context);
         builder = _builder;
-        
         corner = builder.corner();
         stroke = builder.stroke();
         // managing the shape kind
@@ -185,14 +198,8 @@ public class ShapeFactory extends View implements IShapeControl{
 	        	roundedShapes();
 	        	break;
         }
-        
-        
-        
-        
-        
         if(builder.gradientKind() != ""){
-        	findAngle(builder.gradientAngle());
-        	LinearGradient lg = new LinearGradient((int)_x1, (int)_y1, (int)_x2, (int)_y2, builder.gradientColor1(), builder.gradientColor2(), Shader.TileMode.valueOf(builder.gradientKind()));
+        	LinearGradient lg = new LinearGradient(builder.gradientStartX(), builder.gradientStartY(), builder.gradientEndX(), builder.gradientEndY(), builder.gradientColor1(), builder.gradientColor2(), Shader.TileMode.valueOf(builder.gradientKind()));
         	mDrawable.getPaint().setShader(lg);
         } else {
         	mDrawable.getPaint().setColor(builder.color());
@@ -218,19 +225,12 @@ public class ShapeFactory extends View implements IShapeControl{
         	RectF f = new RectF();
         	f.left = f.right = f.top = f.bottom = stroke;
         	mDrawable = new ShapeDrawable(new RoundRectShape(corner, f, _innerCorner));
-    	} else { 
-    		Log.v("int else", "" + stroke);
+    	} else {
     		mDrawable = new ShapeDrawable(new RoundRectShape(corner, null, _innerCorner));
     	}
     }
     
-    private void findAngle(double _angle){
-    	_angle = _angle * Math.PI / 180; // convert to radians
-    	_x1 = 0;
-    	_y1 = 0;
-    	_x2 = _x1 + builder.w() * Math.sin(_angle);
-    	_y2 = _y1 + builder.h() * Math.cos(_angle);
-    }
+  
     
     
     

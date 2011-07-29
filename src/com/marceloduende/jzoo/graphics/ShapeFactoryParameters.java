@@ -13,7 +13,10 @@ public class ShapeFactoryParameters {
 	private int _alpha = 255;
 	private int _gradientColor1;
 	private int _gradientColor2;
-	private int _gradientAngle;
+	private int _gradientStartX;
+	private int _gradientStartY;
+	private int _gradientEndX;
+	private int _gradientEndY;
 	private float[] _corner = new float[]{0,0,0,0,0,0,0,0};
 	
 	public ShapeFactoryParameters x(int x) {
@@ -116,12 +119,37 @@ public class ShapeFactoryParameters {
 	}
 	
 	
-	public ShapeFactoryParameters gradientAngle(int ga){
-		_gradientAngle = ga;
+	public ShapeFactoryParameters gradientStartX(int ga){
+		_gradientStartX = ga;
 		return this;
 	}
-	public int gradientAngle(){
-		return _gradientAngle;
+	public int gradientStartX(){
+		return _gradientStartX;
+	}
+	
+	public ShapeFactoryParameters gradientStartY(int ga){
+		_gradientStartY = ga;
+		return this;
+	}
+	public int gradientStartY(){
+		return _gradientStartY;
+	}
+	
+	
+	public ShapeFactoryParameters gradientEndX(int ga){
+		_gradientEndX = ga;
+		return this;
+	}
+	public int gradientEndX(){
+		return _gradientEndX;
+	}
+	
+	public ShapeFactoryParameters gradientEndY(int ga){
+		_gradientEndY = ga;
+		return this;
+	}
+	public int gradientEndY(){
+		return _gradientEndY;
 	}
 	
 	
