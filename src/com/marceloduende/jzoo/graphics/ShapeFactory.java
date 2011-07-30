@@ -162,6 +162,7 @@ public class ShapeFactory extends View implements IShapeControl{
         stroke = builder.stroke();
         // managing the shape kind
         switch (kind.valueOf(builder.kind())){
+        	
 	        case OVAL:
 	        	mDrawable = new ShapeDrawable(new OvalShape());
 	        	break;
@@ -179,7 +180,7 @@ public class ShapeFactory extends View implements IShapeControl{
 	        	corner = new float[]{0,0,0,0,0,0,0,0};
 	        	roundedShapes();
 	        	break;
-	        
+	        	
 	        case OVAL_STROKE:
 	        	int c = 0;
 	        	for(int b = 0; b<8; b++){
@@ -229,10 +230,6 @@ public class ShapeFactory extends View implements IShapeControl{
     		mDrawable = new ShapeDrawable(new RoundRectShape(corner, null, _innerCorner));
     	}
     }
-    
-  
-    
-    
     
     @Override
     protected void onDraw(Canvas canvas) {
